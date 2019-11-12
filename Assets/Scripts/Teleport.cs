@@ -30,6 +30,6 @@ public class Teleport : MonoBehaviour
     IEnumerator TeleportPlayer()
     {
         yield return new WaitForSeconds(0.25f);
-        Player.transform.position = new Vector2(Portal.transform.position.x, Portal.transform.position.y);
+        Player.transform.position = new Vector2(Portal.transform.position.x, Player.transform.position.y);
     }
 }
