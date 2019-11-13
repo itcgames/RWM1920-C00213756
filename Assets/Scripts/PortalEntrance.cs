@@ -19,14 +19,7 @@ public class PortalEntrance : MonoBehaviour
 
         PortalExitGate = PortalExit.transform.Find("Portal");
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
         {
@@ -34,6 +27,10 @@ public class PortalEntrance : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        
+    }
     IEnumerator TeleportPlayer()
     {
         yield return new WaitForSeconds(0.25f);
