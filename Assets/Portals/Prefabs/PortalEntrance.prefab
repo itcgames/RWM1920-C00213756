@@ -143,10 +143,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 430fbdfbebfb8b745a7f2eee0c53b5fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PortalExit: {fileID: 0}
   TeleportTime: 0
-  PortalExit:
-  - {fileID: 0}
   EntityToTeleport: Player
+  count: 0
 --- !u!1 &7963885297795438002
 GameObject:
   m_ObjectHideFlags: 0

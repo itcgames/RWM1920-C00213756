@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6491531590894236279}
   - component: {fileID: 7874148024433687251}
   - component: {fileID: 3432558059594023767}
+  - component: {fileID: 7134949808135255998}
   m_Layer: 0
   m_Name: PortalExit
   m_TagString: Untagged
@@ -130,6 +131,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.33103836, y: 0.20567107}
   m_EdgeRadius: 0
+--- !u!114 &7134949808135255998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469246630994692538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b090b81d1553d27418cc64bd453427c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5806926678964757904
 GameObject:
   m_ObjectHideFlags: 0
@@ -6189,8 +6202,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.745283, g: 0.44440794, b: 0.08788714, a: 1}
-        key1: {r: 0.9433962, g: 0.34134382, b: 0.30704877, a: 1}
+        key0: {r: 1, g: 1, b: 1, a: 1}
+        key1: {r: 1, g: 0.88858664, b: 0.8820755, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}

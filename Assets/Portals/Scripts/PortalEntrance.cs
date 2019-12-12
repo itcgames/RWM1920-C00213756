@@ -5,23 +5,33 @@ using UnityEngine;
 public class PortalEntrance : MonoBehaviour
 {
     GameObject Player;
+    public GameObject PortalExit;
     [Header("Properties")]
     public float TeleportTime = 1.0f;
 
     [Header("Name Of Objects Related")]
-    public List<GameObject> PortalExit;
 
     public string EntityToTeleport;
+
+    [Header("Connected Teleporter")]
+    public int EntranceNumber = 0;
+
+    Vector2 speedBefore = new Vector2();
 
     // Start is called before the first frame update
     void Start()
     {
+        gameObject.name = "PEntrance" + EntranceNumber.ToString();
         Player = GameObject.Find(EntityToTeleport);
+
+
+        PortalExit = GameObject.Find("PExit" + EntranceNumber.ToString());
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
         {
+            speedBefore = Player.GetComponent<Rigidbody2D>().velocity;
             Player.SetActive(false);
             StartCoroutine(TeleportPlayer());
         }
@@ -35,16 +45,13 @@ public class PortalEntrance : MonoBehaviour
     {
         yield return new WaitForSeconds(TeleportTime);
         Player.SetActive(true);
-        if (PortalExit.Count > 1)
-        {
-            int randPortal = Random.Range(0, PortalExit.Count);
-            Player.transform.position = new Vector2(PortalExit[randPortal].transform.position.x, PortalExit[randPortal].transform.position.y);
-        }
-        else
-        {
-            Player.transform.position = new Vector2(PortalExit[0].transform.position.x, PortalExit[0].transform.position.y);
-        }
+
+        Player.transform.position = new Vector2(PortalExit.transform.position.x, PortalExit.transform.position.y);
+        Player.GetComponent<Rigidbody2D>().velocity = speedBefore;
+
     }
 
-
+    private void Update()
+    {
+    }
 }
