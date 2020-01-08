@@ -112,6 +112,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &18856089 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1469246630994692538, guid: e7098b5ab7f25a344ac3042748d230a1,
+    type: 3}
+  m_PrefabInstance: {fileID: 193976007}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &193976007
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -386,6 +392,26 @@ PrefabInstance:
       propertyPath: count
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2814455617473830668, guid: 7004e148ccf27ad4eaf3cfcd2675e263,
+        type: 3}
+      propertyPath: PortalExit
+      value: 
+      objectReference: {fileID: 18856089}
+    - target: {fileID: 2814455617473830668, guid: 7004e148ccf27ad4eaf3cfcd2675e263,
+        type: 3}
+      propertyPath: EntranceNumber
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2814455617473830668, guid: 7004e148ccf27ad4eaf3cfcd2675e263,
+        type: 3}
+      propertyPath: teleporting
+      value: 
+      objectReference: {fileID: 1150214255}
+    - target: {fileID: 2814455617473830668, guid: 7004e148ccf27ad4eaf3cfcd2675e263,
+        type: 3}
+      propertyPath: TeleportTime
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7004e148ccf27ad4eaf3cfcd2675e263, type: 3}
 --- !u!1 &519420028
@@ -470,6 +496,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1150214255 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8740245685939119140, guid: 7004e148ccf27ad4eaf3cfcd2675e263,
+    type: 3}
+  m_PrefabInstance: {fileID: 424315820}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1522028072
 GameObject:
   m_ObjectHideFlags: 0

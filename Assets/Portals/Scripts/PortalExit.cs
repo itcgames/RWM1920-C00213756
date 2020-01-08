@@ -8,7 +8,7 @@ public class PortalExit : MonoBehaviour
 
     public int ExitNumber = 0;
 
-    void Start()
+    void Awake()
     {
         gameObject.name = "PExit" + ExitNumber.ToString();
     }

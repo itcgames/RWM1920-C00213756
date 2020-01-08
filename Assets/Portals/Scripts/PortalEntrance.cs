@@ -5,9 +5,11 @@ using UnityEngine;
 public class PortalEntrance : MonoBehaviour
 {
     GameObject Player;
-    public GameObject PortalExit;
+    GameObject PortalExit;
     [Header("Properties")]
     public float TeleportTime = 1.0f;
+
+    public AudioSource teleporting;
 
     [Header("Name Of Objects Related")]
 
@@ -53,5 +55,13 @@ public class PortalEntrance : MonoBehaviour
 
     private void Update()
     {
+        if(Player.activeSelf != true)
+        {
+            teleporting.Play();
+        }
+        else
+        {
+            teleporting.Stop();
+        }
     }
 }
