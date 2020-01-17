@@ -7,9 +7,10 @@ public class PortalEntrance : MonoBehaviour
     GameObject Player;
     GameObject PortalExit;
     [Header("Properties")]
-    public float TeleportTime = 1.0f;
+    float TeleportTime = 5.5f;
 
     public AudioSource teleporting;
+    public ParticleSystem particleSystem;
 
     [Header("Name Of Objects Related")]
 
@@ -19,6 +20,10 @@ public class PortalEntrance : MonoBehaviour
     public int EntranceNumber = 0;
 
     Vector2 speedBefore = new Vector2();
+    private void Awake()
+    {
+        particleSystem.Stop();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -41,10 +46,11 @@ public class PortalEntrance : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
     }
     IEnumerator TeleportPlayer()
     {
+        particleSystem.Play();
+
         yield return new WaitForSeconds(TeleportTime);
         Player.SetActive(true);
 
