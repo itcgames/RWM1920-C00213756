@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TeleportTime: 0
+  teleporting: {fileID: 8740245685939119140}
   EntityToTeleport: Player
   EntranceNumber: 0
 --- !u!82 &1041287219332428784
