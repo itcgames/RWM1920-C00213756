@@ -4,18 +4,5 @@ using UnityEngine;
 
 public class PortalExit : MonoBehaviour
 {
-    // Start is called before the first frame update
-
-    public int ExitNumber = 0;
-
-    void Awake()
-    {
-        gameObject.name = "PExit" + ExitNumber.ToString();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
+
