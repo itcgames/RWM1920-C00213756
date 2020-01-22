@@ -4914,6 +4914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 430fbdfbebfb8b745a7f2eee0c53b5fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  auto_find: 1
   teleporting: {fileID: 8740245685939119140}
   particleSystem: {fileID: 73466593}
   ExitParticleEffect: {fileID: 0}

@@ -9,7 +9,8 @@ public class PortalEntrance : MonoBehaviour
     Vector2 speedBefore = new Vector2();
     float TeleportTime = 5.5f;
 
-
+    [Header("Auto Find Necessary Objects")]
+    public bool auto_find = false;
 
 
     [Header("Properties")]
@@ -31,8 +32,14 @@ public class PortalEntrance : MonoBehaviour
     private float shakeDamping = 1.0f; // How fast it fades out 
     Vector3 intPos; // initial pos of object
 
+
     private void Awake()
     {
+        if(auto_find == true)
+        {
+            connectedTeleporter = null;
+        }
+
         if(t == null)
         {
             t = Camera.main.transform;
@@ -42,11 +49,6 @@ public class PortalEntrance : MonoBehaviour
         Player = GameObject.Find(EntityToTeleport);
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.name == Player.name)
@@ -77,7 +79,13 @@ public class PortalEntrance : MonoBehaviour
 
     private void Update()
     {
-        if(shakeDuration > 0)
+        if (auto_find == true)
+        {
+            connectedTeleporter = GameObject.Find("PortalExit");
+            ExitParticleEffect = GameObject.Find("ExpolosiveParticles").GetComponent<ParticleSystem>();
+        }
+
+        if (shakeDuration > 0)
         {
             t.localPosition = intPos + Random.insideUnitSphere * shakeMag;
             shakeDuration -= Time.deltaTime * shakeDamping;
