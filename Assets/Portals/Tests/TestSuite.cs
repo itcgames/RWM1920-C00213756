@@ -5,15 +5,55 @@ using System.Collections;
 
 public class TestSuite
 {
+
+    GameObject Entrance = Resources.Load("PortalEntrance") as GameObject;
+    GameObject Exit = Resources.Load("PortalExit") as GameObject;
+    GameObject Player = Resources.Load("Player") as GameObject;
+
+
     [UnityTest]
-    public IEnumerator isActve()
+    public IEnumerator isPortalEntranceNotNull()
     {
-        GameObject Entrance = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Portals/Prefabs/PortalEntrance"));
 
         Assert.IsNotNull(Entrance);
 
         yield return null;
     }
 
+    [UnityTest]
+    public IEnumerator isPortalExitNotNull()
+    {
+
+        Assert.IsNotNull(Exit);
+
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator arePortalsConnected()
+    {
+        Entrance.GetComponent<PortalEntrance>().connectedTeleporter = Exit.gameObject;
+
+        Assert.IsNotNull(Entrance.GetComponent<PortalEntrance>().connectedTeleporter);
+
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator Teleport()
+    {
+
+        Entrance.transform.position = new Vector2(0, 0);
+        Exit.transform.position = new Vector2(10, 10);
+
+        Player.transform.position = new Vector2(0, 5);
+
+        Vector2 tempPos = Player.transform.position;
+
+        yield return new WaitForSeconds(15);
+
+        Assert.AreNotEqual(Player.transform.position, tempPos);
+
+    }
 }
 

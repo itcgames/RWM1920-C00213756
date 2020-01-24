@@ -4,5 +4,16 @@ using UnityEngine;
 
 public class PortalExit : MonoBehaviour
 {
+    private void Update()
+    {
+        if(GameObject.Find("PortalEntrance"))
+        {
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
 }
 
