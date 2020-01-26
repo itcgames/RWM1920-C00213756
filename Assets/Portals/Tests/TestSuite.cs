@@ -46,11 +46,14 @@ public class TestSuite
         Entrance.transform.position = new Vector2(0, 0);
         Exit.transform.position = new Vector2(10, 10);
 
-        Player.transform.position = new Vector2(0, 5);
+        Player.transform.position = new Vector2(0, 0);
 
         Vector2 tempPos = Player.transform.position;
 
-        yield return new WaitForSeconds(15);
+        Entrance.GetComponent<PortalEntrance>().TeleportPlayer(Player);
+
+
+        yield return new WaitForSeconds(6);
 
         Assert.AreNotEqual(Player.transform.position, tempPos);
 

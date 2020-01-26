@@ -4,28 +4,25 @@ using UnityEngine;
 
 public class PortalEntrance : MonoBehaviour
 {
-    GameObject Player;
-    GameObject PortalExit;
     Vector2 speedBefore = new Vector2();
     float TeleportTime = 5.5f;
 
     [Header("Auto Find Necessary Objects")]
-    public bool auto_find = false;
+    public bool AutoLocate = false;
 
 
     [Header("Properties")]
-    public AudioSource teleporting;
-    public ParticleSystem particleSystem;
+    public AudioSource teleportSound;
+    public ParticleSystem chargeParticleSystem;
     public ParticleSystem ExitParticleEffect;
 
+
     [Header("Name Of Objects Related")]
-    public string EntityToTeleport;
     public GameObject connectedTeleporter;
 
     [Header("Shake Settings")]
-    //Camera Shake
-    public bool CameraShake;
-    private Transform t; // Object I want to shake 
+    public bool CameraShake = false; // If I want to shake the camera
+    private Transform shakeObject; // Object I want to shake 
     private float shakeDuration = 0.0f; // Duration of shake
     public float shakeDurationInput;
     public float shakeMag; // Strength of shake
@@ -33,67 +30,104 @@ public class PortalEntrance : MonoBehaviour
     Vector3 intPos; // initial pos of object
 
 
-    private void Awake()
+    public void Awake()
     {
-        if(auto_find == true)
+        if(AutoLocate == true)
         {
             connectedTeleporter = null;
         }
 
-        if(t == null)
+        if (CameraShake)
         {
-            t = Camera.main.transform;
-            intPos = t.transform.position;
+            if (shakeObject == null)
+            {
+                shakeObject = Camera.main.transform;
+                intPos = shakeObject.transform.position;
+            }
         }
-        particleSystem.Stop();
-        Player = GameObject.Find(EntityToTeleport);
+        chargeParticleSystem.Stop();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.name == Player.name)
-        {
-            speedBefore = Player.GetComponent<Rigidbody2D>().velocity;
-            Player.SetActive(false);
-            StartCoroutine(TeleportPlayer());
+            // Captures the speed before teleport happens
+            speedBefore = other.GetComponent<Rigidbody2D>().velocity;
 
-        }
+            // Turns off the object
+            other.gameObject.SetActive(false);
+
+            //Teleports the Object
+            StartCoroutine(TeleportPlayer(other.gameObject));
     }
-    IEnumerator TeleportPlayer()
+
+    public IEnumerator TeleportPlayer(GameObject other)
     {
+        //Checks to see if the Camera shake is allowed
         if (CameraShake == true)
         {
             shakeCamera();
         }
-        particleSystem.Play();
-        teleporting.Play();
+        //Plays the Particle Effect
+        chargeParticleSystem.Play();
+        //Plays the Sound Effect
+        teleportSound.Play();
+
+        connectedTeleporter.GetComponent<Collider2D>().enabled = false;
+
+
+        // Time teleport takes
+        yield return new WaitForSeconds(TeleportTime);
+
+        // Moves the object that is teleported to the other portal 
+        other.transform.position = new Vector2(connectedTeleporter.transform.position.x, connectedTeleporter.transform.position.y);
+
+        // Turns the other object back on
+        other.SetActive(true);
+
+        // Sets the velocity to what it was before the teleport happened
+        other.GetComponent<Rigidbody2D>().velocity = speedBefore;
+
+        // Play the exit particle effect
+        ExitParticleEffect.Play();
 
         yield return new WaitForSeconds(TeleportTime);
-        Player.transform.position = new Vector2(connectedTeleporter.transform.position.x, connectedTeleporter.transform.position.y);
-        Player.SetActive(true);
-        Player.GetComponent<Rigidbody2D>().velocity = speedBefore;
-        ExitParticleEffect.Play();
+
+        connectedTeleporter.GetComponent<Collider2D>().enabled = true;
 
 
     }
 
-    private void Update()
+    public void Update()
     {
-        if (auto_find == true)
+        //Locates the Exit in the Scene
+        if (AutoLocate == true)
         {
-            connectedTeleporter = GameObject.Find("PortalExit");
-            ExitParticleEffect = GameObject.Find("ExpolosiveParticles").GetComponent<ParticleSystem>();
+            if(gameObject.tag == "PortalEntrance")
+            {
+                connectedTeleporter = GameObject.Find("PortalExit");
+                ExitParticleEffect = GameObject.Find("ExitExplosiveParticles").GetComponent<ParticleSystem>();
+            }
+            else
+            {
+                connectedTeleporter = GameObject.Find("PortalEntrance");
+                ExitParticleEffect = GameObject.Find("EntranceExplosiveParticles").GetComponent<ParticleSystem>();
+            }
+
         }
 
-        if (shakeDuration > 0)
+        //Shake Camera
+        if(CameraShake == true)
         {
-            t.localPosition = intPos + Random.insideUnitSphere * shakeMag;
-            shakeDuration -= Time.deltaTime * shakeDamping;
-        }
-        else
-        {
-            shakeDuration = 0.0f;
-            t.localPosition = intPos;
+            if (shakeDuration > 0)
+            {
+                shakeObject.localPosition = intPos + Random.insideUnitSphere * shakeMag;
+                shakeDuration -= Time.deltaTime * shakeDamping;
+            }
+            else
+            {
+                shakeDuration = 0.0f;
+                shakeObject.localPosition = intPos;
+            }
         }
     }
 
